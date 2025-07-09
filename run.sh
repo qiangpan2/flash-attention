@@ -1,0 +1,1 @@
+nsys profile --trace=cuda,cublas,osrt,nvtx --gpu-metrics-devices=all --cuda-memory-usage=true --force-overwrite=true --output  flash_attn_profile pytest ./tests/test_flash_attn.py -k test_flash_attn_varlen_output -s
