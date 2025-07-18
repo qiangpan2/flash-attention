@@ -861,6 +861,26 @@ def test_flash_attn_varlen_qkvpacked(
         assert (dqkv - dqkv_ref).abs().max().item() <= 2 * (dqkv_pt - dqkv_ref).abs().max().item()
 
 
+
+def test_flash_attn_output_multiple_runs():
+    for i in range(10):
+        print(f"Run {i+1}/10")
+        test_flash_attn_output(
+            seqlen_q=75600,
+            seqlen_k=75600,
+            d=128,
+            dropout_p=0.0,
+            causal=False,
+            local=False,
+            alibi=False,
+            deterministic=False,
+            mha_type="mha",
+            dtype=torch.float16,
+            kvpacked=False,
+            softcap=0.0
+        )
+
+
 # @pytest.mark.parametrize("kvpacked", [True, False])
 @pytest.mark.parametrize("kvpacked", [False])
 @pytest.mark.parametrize("dtype", ([torch.float16]))
